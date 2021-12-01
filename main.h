@@ -35,13 +35,7 @@ typedef struct built_l
 /*prototypes*/
 int main(int argc, char **argv, char **env);
 args_t *add(args_t **head, char *arg);
-size_t print(args_t *head);
 char **transform(args_t **haed);
-char *_strcat(char *dest, char *src);
-int _strcmp(char *s1, char *s2);
-char *concatenar(char *dir, char *comando);
-char *_getenv(const char *name);
-int _exito(void);
-int _env(void);
-int holam(void);
+void _free_list(args_t *head);
+void _free_args(char **args);
 #endif /* MAIN_H */

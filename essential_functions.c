@@ -15,7 +15,7 @@ args_t *add(args_t **head, char *arg)
 	node = malloc(sizeof(args_t));
 	if (node == NULL)
 		return (NULL);
-	node->arg = strdup(arg);
+	node->arg = arg;
 	node->next = NULL;
 	if (*head == NULL)
 	{
@@ -53,5 +53,6 @@ char **transform(args_t **head)
 		h = h->next;
 	}
 	arguments[i] = NULL;
+	_free_list(*head);
 	return (arguments);
 }

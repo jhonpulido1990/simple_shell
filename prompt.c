@@ -7,7 +7,7 @@
 int main(int argc, char **argv, char **env)
 {
 	ssize_t status_read, tty = 1;
-	char *line, *cpline, *arg = NULL, **args = NULL;
+	char *line = NULL, *cpline, *arg = NULL, **args = NULL;
 	int status_execve, status;
 	pid_t pid;
 	size_t lineSize = 0;
@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **env)
 		status_read = getline(&line, &lineSize, stdin);
 		if (status_read == -1)
 			return (-1);
-		cpline = strdup(line);
+		cpline = line;
 		for (; (arg = strtok(cpline, " \t\n")); cpline = NULL)
 		{
 			if (arg == NULL)
@@ -43,6 +43,7 @@ int main(int argc, char **argv, char **env)
 		}
 		else
 			wait(&status);
+		_free_args(args);
 		arguments = NULL;
 	} while (1);
 	return (0);
