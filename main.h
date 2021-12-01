@@ -36,6 +36,6 @@ typedef struct built_l
 int main(int argc, char **argv, char **env);
 args_t *add(args_t **head, char *arg);
 char **transform(args_t **haed);
-void _free_list(args_t *head);
+void _free_list(args_t **head);
 void _free_args(char **args);
 #endif /* MAIN_H */

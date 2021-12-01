@@ -5,9 +5,22 @@
  *
  * Return: void
  */
-void _free_list(args_t *head)
+void _free_list(args_t **head)
 {
-	(void) head;
+	args_t *tmp;
+
+	if (head == NULL)
+	{
+		return;
+	}
+	while (*head != NULL)
+	{
+		tmp = *head;
+		*head = tmp->next;
+		free(tmp);
+	}
+	*head = NULL;
+	free(*head);
 }
 /**
  * _free_args - free a list
