@@ -38,7 +38,7 @@ args_t *add(args_t **head, char *arg)
  */
 int no_built_in(args_t **head)
 {
-	char *path_string = strdup(_getenv("PATH"));
+	char *path_string = _getenv("PATH");
 	char *dir = NULL;
 	char *dircon, *command;
 	args_t *aux = *head;
@@ -102,11 +102,14 @@ int built_in(args_t **head)
  */
 char **transform(args_t **head)
 {
-	int i = 0;
+	int i = 0, statusb = 1;
 	args_t *h;
 	char **arguments;
 
-	built_in(head);
+	statusb = built_in(head);
+	printf("statusb = %d\n", statusb);
+	if (statusb == 0)
+		return (NULL);
 	h = *head;
 	for (i = 0; h; i++)
 		h = h->next;

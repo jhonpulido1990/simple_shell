@@ -23,7 +23,10 @@ int main(int argc, char **argv, char **env)
 		fflush(stdin);
 		status_read = getline(&line, &lineSize, stdin);
 		if (status_read == EOF)
+		{
+			free(line);
 			break;
+		}
 		if (*line == '\n' || *line == '\t')
 			continue;
 		cpline = line;
@@ -34,6 +37,12 @@ int main(int argc, char **argv, char **env)
 			add(&arguments, arg);
 		}
 		args = transform(&arguments);
+		if(args == NULL)
+		{
+			_free_list(&arguments);
+			printf("se termino el ciclo\n");
+			continue;
+		}
 		pid = fork();
 		if (pid == 1)
 			return (-1);
