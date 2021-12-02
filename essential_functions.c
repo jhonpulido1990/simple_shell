@@ -121,6 +121,6 @@ char **transform(args_t **head)
 		h = h->next;
 	}
 	arguments[i] = NULL;
-	_free_list(head);
+	free_list(head);
 	return (arguments);
 }

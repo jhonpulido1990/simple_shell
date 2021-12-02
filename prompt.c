@@ -49,7 +49,6 @@ int main(int argc, char **argv, char **env)
 		else if (pid == 0)
 		{
 			status_execve = execve(args[0], args, env);
-			_free_args(args);
 			if (status_execve == -1)
 				return (-1);
 		}
