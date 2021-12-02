@@ -57,6 +57,7 @@ int no_built_in(args_t **head)
 			aux->arg = dircon;
 			return (0);
 		}
+		free(dircon);
 	}
 	return (0);
 }
