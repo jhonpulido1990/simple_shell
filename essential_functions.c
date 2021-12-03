@@ -49,7 +49,9 @@ int no_built_in(args_t **head)
 	for (; (dir = strtok(path_string, ":")); path_string = NULL)
 	{
 		if (dir == NULL)
+		{
 			break;
+		}
 		_nest(dir, command, &dircon);
 		status = stat(dircon, &buf);
 		if (status == 0)
@@ -100,27 +102,26 @@ int built_in(args_t **head)
  *
  * Return: argument
  */
-char **transform(args_t **head)
+int transform(args_t **head, char ***args)
 {
 	int i = 0, statusb = 1;
 	args_t *h;
-	char **arguments;
+	char **args_aux = *args;
 
 	statusb = built_in(head);
-	printf("statusb = %d\n", statusb);
 	if (statusb == 0)
-		return (NULL);
+		return (0);
 	h = *head;
 	for (i = 0; h; i++)
 		h = h->next;
-	arguments = malloc((i + 1) * sizeof(char *));
+	*args = malloc((i + 1) * sizeof(char *));
+	args_aux = *args;
 	h = *head;
 	for (i = 0; h; i++)
 	{
-		arguments[i] = h->arg;
+		args_aux[i] = h->arg;
 		h = h->next;
 	}
-	arguments[i] = NULL;
-	free_list(head);
-	return (arguments);
+	args_aux[i] = NULL;
+	return (1);
 }

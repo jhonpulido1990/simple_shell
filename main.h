@@ -35,9 +35,9 @@ typedef struct built_l
 /*prototypes*/
 int main(int argc, char **argv, char **env);
 args_t *add(args_t **head, char *arg);
-char **transform(args_t **haed);
+int transform(args_t **haed, char ***args);
 void _free_list(args_t **head);
-void _free_args(char **args);
+void _free_args(char ***args);
 
 int holam1(void);
 int holam2(void);

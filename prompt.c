@@ -8,7 +8,7 @@ int main(int argc, char **argv, char **env)
 {
 	ssize_t status_read, tty = 1;
 	char *line = NULL, *cpline = NULL, *arg = NULL, **args = NULL;
-	int status_execve, status;
+	int status_execve, status, status_trans;
 	pid_t pid;
 	size_t lineSize = 0;
 	args_t *arguments = NULL;
@@ -36,11 +36,10 @@ int main(int argc, char **argv, char **env)
 				break;
 			add(&arguments, arg);
 		}
-		args = transform(&arguments);
-		if(args == NULL)
+		status_trans = transform(&arguments, &args);
+		if(status_trans == 0)
 		{
 			_free_list(&arguments);
-			printf("se termino el ciclo\n");
 			continue;
 		}
 		pid = fork();
@@ -49,11 +48,19 @@ int main(int argc, char **argv, char **env)
 		else if (pid == 0)
 		{
 			status_execve = execve(args[0], args, env);
+/*			_free_args(&args);*/
+/*			_free_list(&arguments);*/
 			if (status_execve == -1)
+			{
 				return (-1);
+			}
 		}
 		else
+		{
 			wait(&status);
+		}
+		_free_args(&args);
+		_free_list(&arguments);
 		arguments = NULL;
 	} while (1);
 	return (0);
