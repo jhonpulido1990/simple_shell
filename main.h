@@ -47,4 +47,5 @@ int _strcmp(char *s1, char *s2);
 char *_getenv(const char *name);
 void _nest(char *dir, char *command, char **dircon);
 void _strdup(char *str, char **str_copy);
+int create_list(char* cpline, char** putline, args_t ** arguments);
 #endif /* MAIN_H */

@@ -10,7 +10,7 @@
 int main(int argc, char **argv, char **env)
 {
 	ssize_t status_read, tty = 1;
-	char *line = NULL, *cpline = NULL, *arg = NULL, **args = NULL, *putline;
+	char *line = NULL, *cpline = NULL, **args = NULL, *putline;
 	int status_execve, status, status_trans;
 	pid_t pid;
 	size_t lineSize = 0;
@@ -31,15 +31,7 @@ int main(int argc, char **argv, char **env)
 			continue;
 		_strdup(line, &cpline);
 		putline = cpline;
-		for (; (arg = strtok(cpline, " \t\n")); cpline = NULL)
-		{
-			if (arg == NULL)
-			{
-				free(putline);
-				break;
-			}
-			add(&arguments, arg);
-		}
+		create_list(cpline, &putline, &arguments);
 		status_trans = transform(&arguments, &args);
 		if (status_trans == 0)
 		{
@@ -54,11 +46,9 @@ int main(int argc, char **argv, char **env)
 			status_execve = execve(args[0], args, env);
 			if (status_execve == -1)
 				return (-1);
-		}
-		else
+		} else
 			wait(&status), _free_list(&arguments), free(args);
 		free(putline), free(line), arguments = NULL, line = NULL;
 	} while (1);
-	free(cpline);
 	return (0);
 }
