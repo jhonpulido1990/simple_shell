@@ -38,29 +38,37 @@ args_t *add(args_t **head, char *arg)
  */
 int no_built_in(args_t **head)
 {
-	char *path_string = _getenv("PATH");
+	char *path_string, *putpath;
 	char *dir = NULL;
 	char *dircon, *command;
 	args_t *aux = *head;
 	int status;
 	struct stat buf;
 
+	_strdup(_getenv("PATH"), &path_string);
 	command  = aux->arg;
+	putpath = path_string;
 	for (; (dir = strtok(path_string, ":")); path_string = NULL)
 	{
 		if (dir == NULL)
 		{
-			break;
+			free(putpath);
+			continue;
 		}
 		_nest(dir, command, &dircon);
 		status = stat(dircon, &buf);
 		if (status == 0)
 		{
 			aux->arg = dircon;
+			free(putpath);
+			free(dircon);
 			return (0);
 		}
+		printf("free dircon\n");
 		free(dircon);
 	}
+	/*aux->arg = "/bin/clear";*/
+	free(putpath);
 	return (0);
 }
 /**
@@ -81,11 +89,11 @@ int built_in(args_t **head)
 	{
 		comp = _strcmp(modulo[i].id, dato);
 
-			if (comp == 0)
-			{
-				modulo[i].f();
-				return (0);
-			}
+		if (comp == 0)
+		{
+			modulo[i].f();
+			return (0);
+		}
 
 	}
 

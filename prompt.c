@@ -2,21 +2,21 @@
 /**
  * main - main
  *
+ * @argc: unused
+ * @argv: unused
+ * @env: unused
  * Return: Always 0
  */
 int main(int argc, char **argv, char **env)
 {
 	ssize_t status_read, tty = 1;
-	char *line = NULL, *cpline = NULL, *arg = NULL, **args = NULL;
+	char *line = NULL, *cpline = NULL, *arg = NULL, **args = NULL, *putline;
 	int status_execve, status, status_trans;
 	pid_t pid;
 	size_t lineSize = 0;
 	args_t *arguments = NULL;
 
-	UNUSED(argc);
-	UNUSED(argv);
-	UNUSED(env);
-
+	UNUSED(env), UNUSED(argv), UNUSED(argc);
 	isatty(STDIN_FILENO) == 0 ? tty = 0 : tty;
 	do {
 		tty == 1 ? write(STDOUT_FILENO, "($) ", 4) : tty;
@@ -29,17 +29,21 @@ int main(int argc, char **argv, char **env)
 		}
 		if (*line == '\n' || *line == '\t')
 			continue;
-		cpline = line;
+		_strdup(line, &cpline);
+		putline = cpline;
 		for (; (arg = strtok(cpline, " \t\n")); cpline = NULL)
 		{
 			if (arg == NULL)
+			{
+				free(putline);
 				break;
+			}
 			add(&arguments, arg);
 		}
 		status_trans = transform(&arguments, &args);
-		if(status_trans == 0)
+		if (status_trans == 0)
 		{
-			_free_list(&arguments);
+			_free_list(&arguments), free(putline);
 			continue;
 		}
 		pid = fork();
@@ -48,20 +52,13 @@ int main(int argc, char **argv, char **env)
 		else if (pid == 0)
 		{
 			status_execve = execve(args[0], args, env);
-/*			_free_args(&args);*/
-/*			_free_list(&arguments);*/
 			if (status_execve == -1)
-			{
 				return (-1);
-			}
 		}
 		else
-		{
-			wait(&status);
-		}
-		_free_args(&args);
-		_free_list(&arguments);
-		arguments = NULL;
+			wait(&status), _free_list(&arguments), free(args);
+		free(putline), free(line), arguments = NULL, line = NULL;
 	} while (1);
+	free(cpline);
 	return (0);
 }

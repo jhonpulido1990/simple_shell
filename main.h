@@ -46,4 +46,5 @@ int holam3(void);
 int _strcmp(char *s1, char *s2);
 char *_getenv(const char *name);
 void _nest(char *dir, char *command, char **dircon);
+void _strdup(char *str, char **str_copy);
 #endif /* MAIN_H */
