@@ -124,7 +124,7 @@ char **transform(args_t **head)
 		h = h->next;
 	args = malloc((i + 1) * sizeof(char *));
 	if (args == NULL)
-		return(NULL);
+		return (NULL);
 	h = *head;
 	for (i = 0; h; i++)
 	{
@@ -133,4 +133,28 @@ char **transform(args_t **head)
 	}
 	args[i] = NULL;
 	return (args);
+}
+/**
+ * create_list - create list
+ * @cpline: line copy
+ * @putline: pointer to line
+ * @arguments: argument list
+ *
+ * Return: argument
+ */
+int create_list(char *cpline, char **putline, args_t **arguments)
+{
+	char *arg = NULL;
+
+	(void) putline;
+	for (; (arg = strtok(cpline, " \t\n")); cpline = NULL)
+	{
+		if (arg == NULL)
+		{
+			free(*putline);
+			break;
+		}
+		add(arguments, arg);
+	}
+	return (0);
 }

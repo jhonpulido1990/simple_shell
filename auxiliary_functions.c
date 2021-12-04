@@ -85,7 +85,7 @@ int _strcmp(char *s1, char *s2)
  * _nest - nest command to dir
  * @dir: dir take to path
  * @command: command
- *
+ * @dircon: full directory
  *
  * Return: dir + command
  */
@@ -111,4 +111,31 @@ void _nest(char *dir, char *command, char **dircon)
 		tmp[a] = command[k];
 	}
 	tmp[a++] = '\0';
+}
+/**
+ * _strdup - nest command to dir
+ * @str: original string
+ * @str_copy: copy string
+ *
+ *
+ * Return: void
+ */
+void _strdup(char *str, char **str_copy)
+{
+	int i = 0, j = 0;
+	char *tmp;
+
+	while (*(str + i))
+	{
+		i++;
+	}
+
+	*str_copy = malloc(sizeof(char) * (i + 1));
+	tmp = *str_copy;
+
+	while (j <= i)
+	{
+		tmp[j] = str[j];
+		j++;
+	}
 }

@@ -1,12 +1,12 @@
 #include "main.h"
 /**
  * _getenv - get enviroment function
+ * @name: name directory path
  *
  * Return: Always 0 (Success)
  */
 char *_getenv(const char *name)
 {
-	extern char **environ;
 	int i, j;
 	char *value;
 
