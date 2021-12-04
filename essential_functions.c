@@ -61,13 +61,10 @@ int no_built_in(args_t **head)
 		{
 			aux->arg = dircon;
 			free(putpath);
-			free(dircon);
-			return (0);
+			return (1);
 		}
-		printf("free dircon\n");
 		free(dircon);
 	}
-	/*aux->arg = "/bin/clear";*/
 	free(putpath);
 	return (0);
 }
@@ -82,8 +79,11 @@ int built_in(args_t **head)
 	select_built_t modulo[] = {{"exit1", holam1}, {"exit2", holam2},
 				   {"exit3", holam3}, {NULL, NULL}};
 	args_t *aux = *head;
-	int comp, i;
+	int comp, i, status_nb;
 	char *dato = aux->arg;
+
+	if (head == NULL)
+		return (0);
 
 	for (i = 0; modulo[i].f != NULL; i++)
 	{
@@ -99,10 +99,13 @@ int built_in(args_t **head)
 
 	if (comp != 0)
 	{
-		no_built_in(head);
-		return (1);
+		status_nb = no_built_in(head);
+		if (status_nb == 1)
+			return (1);
+		else
+			return (2);
 	}
-	return (1);
+	return (2);
 }
 /**
  * transform - traslate list to string
@@ -110,26 +113,24 @@ int built_in(args_t **head)
  *
  * Return: argument
  */
-int transform(args_t **head, char ***args)
+char **transform(args_t **head)
 {
-	int i = 0, statusb = 1;
-	args_t *h;
-	char **args_aux = *args;
+	int i = 0;
+	args_t *h = NULL;
+	char **args;
 
-	statusb = built_in(head);
-	if (statusb == 0)
-		return (0);
 	h = *head;
 	for (i = 0; h; i++)
 		h = h->next;
-	*args = malloc((i + 1) * sizeof(char *));
-	args_aux = *args;
+	args = malloc((i + 1) * sizeof(char *));
+	if (args == NULL)
+		return(NULL);
 	h = *head;
 	for (i = 0; h; i++)
 	{
-		args_aux[i] = h->arg;
+		args[i] = h->arg;
 		h = h->next;
 	}
-	args_aux[i] = NULL;
-	return (1);
+	args[i] = NULL;
+	return (args);
 }

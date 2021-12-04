@@ -28,12 +28,12 @@ void _free_list(args_t **head)
  *
  * Return: void
  */
-void _free_args(char ***args)
+void _free_args(char **args)
 {
 	int i;
 	char **tmp;
 
-	tmp = *args;
+	tmp = args;
 
 	for (i = 0; tmp[i] != NULL; i++)
 	{

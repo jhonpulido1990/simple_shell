@@ -35,9 +35,9 @@ typedef struct built_l
 /*prototypes*/
 int main(int argc, char **argv, char **env);
 args_t *add(args_t **head, char *arg);
-int transform(args_t **haed, char ***args);
+char **transform(args_t **head);
 void _free_list(args_t **head);
-void _free_args(char ***args);
+void _free_args(char **args);
 
 int holam1(void);
 int holam2(void);
@@ -48,4 +48,5 @@ char *_getenv(const char *name);
 void _nest(char *dir, char *command, char **dircon);
 void _strdup(char *str, char **str_copy);
 int create_list(char* cpline, char** putline, args_t ** arguments);
+int built_in(args_t **head);
 #endif /* MAIN_H */
