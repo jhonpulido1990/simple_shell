@@ -20,8 +20,7 @@ int main(int argc, char **argv, char **env)
 	isatty(STDIN_FILENO) == 0 ? tty = 0 : tty;
 	do {
 		tty == 1 ? write(STDOUT_FILENO, "($) ", 4) : tty;
-		fflush(stdin);
-		status_read = getline(&line, &lineSize, stdin);
+		fflush(stdin), status_read = getline(&line, &lineSize, stdin);
 		if (status_read == EOF)
 		{
 			free(line);
@@ -29,8 +28,7 @@ int main(int argc, char **argv, char **env)
 		}
 		if (*line == '\n' || *line == '\t')
 			continue;
-		_strdup(line, &cpline);
-		putline = cpline;
+		_strdup(line, &cpline),	putline = cpline;
 		create_list(cpline, &putline, &arguments);
 		status_trans = transform(&arguments, &args);
 		if (status_trans == 0)
