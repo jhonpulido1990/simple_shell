@@ -39,9 +39,8 @@ char **transform(args_t **head);
 void _free_list(args_t **head);
 void _free_args(char **args);
 
-int holam1(void);
-int holam2(void);
-int holam3(void);
+int envi(void);
+int exitt(void);
 
 int _strcmp(char *s1, char *s2);
 char *_getenv(const char *name);

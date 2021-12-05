@@ -1,16 +1,25 @@
 #include "main.h"
-int holam1(void)
+/**
+ * envi - list of environment variables
+ *
+ * Return: list
+ */
+int envi(void)
 {
-	printf("hola mundo1\n");
+	size_t i;
+
+	for (i = 0; environ[i] != NULL; i++)
+	{
+		printf("%s\n", environ[i]);
+	}
 	return (0);
 }
-int holam2(void)
+/**
+ * exitt - end of program
+ *
+ * Return: exit
+ */
+int exitt(void)
 {
-	printf("hola mundo2\n");
-	return (0);
-}
-int holam3(void)
-{
-	printf("hola mundo3\n");
-	return (0);
+	exit(-1);
 }
