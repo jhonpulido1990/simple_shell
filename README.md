@@ -107,26 +107,24 @@ execve() executes the program referred to by pathname.  This causes the program 
        process to be replaced with a new program, with newly initialized stack, heap, and (initialized and uninitialized) data segments. pathname must be either a binary executable, or a script starting
        with a line of the form:
 
-        interpreter [optional-arg]
+    interpreter [optional-arg]
 
-       For details of the latter case, see "Interpreter scripts" below.
+    For details of the latter case, see "Interpreter scripts" below.
 
-       argv is an array of pointers to strings passed to the new program as its command-line arguments.
-       By convention, the first of these strings (i.e., argv[0]) should contain the filename associated
-       with the file being executed.  The argv array must be terminated
-       by a NULL pointer.  (Thus, in the new program, argv[argc] will be
-       NULL.)
+    argv is an array of pointers to strings passed to the new program as its command-line arguments.
+    By convention, the first of these strings (i.e., argv[0]) should contain the filename associated
+    with the file being executed.  The argv array must be terminated
+    by a NULL pointer.  (Thus, in the new program, argv[argc] will be NULL.)
+    envp is an array of pointers to strings, conventionally of the
+    form key=value, which are passed as the environment of the new
+    program.  The envp array must be terminated by a NULL pointer.
+    The argument vector and environment can be accessed by the new
+    program's main function, when it is defined as:
 
-       envp is an array of pointers to strings, conventionally of the
-       form key=value, which are passed as the environment of the new
-       program.  The envp array must be terminated by a NULL pointer.
-       The argument vector and environment can be accessed by the new
-       program's main function, when it is defined as:
+        int main(int argc, char *argv[], char *envp[])
 
-           int main(int argc, char *argv[], char *envp[])
-
-       Note, however, that the use of a third argument to the main function is not specified in POSIX.1;
-       according to POSIX.1, the environment should be accessed via the external variable environ(7).
+    Note, however, that the use of a third argument to the main function is not specified in POSIX.1;
+    according to POSIX.1, the environment should be accessed via the external variable environ(7).
 
 ## _How to suspend the execution of a process until one of its children finishes
 
@@ -147,9 +145,9 @@ The status_ptr pointer may also be NULL, in which case wait() ignores the child'
 
 The following function calls are equivalent:
 
-* **wait(status_ptr);
-* **waitpid(-1,status_ptr,0);
-* **wait3(status_ptr,0,NULL);
+* **wait(status_ptr);**
+* **waitpid(-1,status_ptr,0);**
+* **wait3(status_ptr,0,NULL);**
 
 ## _what is eof / end of file
 
