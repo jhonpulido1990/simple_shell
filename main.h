@@ -12,6 +12,7 @@
 #include <sys/wait.h>
 #define UNUSED(x) (void)(x)
 extern char **environ;
+/*include structure*/
 /**
  * struct args_s - linked list
  * @arg: comand
@@ -32,20 +33,23 @@ typedef struct built_l
 	char *id;
 	int (*f)();
 } select_built_t;
-/*prototypes*/
+/*prototypes prompt*/
 int main(int argc, char **argv, char **env);
+/*prototypes essential_functions*/
 args_t *add(args_t **head, char *arg);
+int built_in(args_t **head);
 char **transform(args_t **head);
-void _free_list(args_t **head);
-void _free_args(char **args);
-
+int create_list(char *cpline, char **putline, args_t **arguments);
+/*prototypes getenv*/
+char *_getenv(const char *name);
+/*prototypes built in*/
 int envi(void);
 int exitt(void);
-
+/*prototypes auxiliary_functions*/
+void _free_list(args_t **head);
+void _free_args(char **args);
 int _strcmp(char *s1, char *s2);
-char *_getenv(const char *name);
 void _nest(char *dir, char *command, char **dircon);
 void _strdup(char *str, char **str_copy);
-int create_list(char *cpline, char **putline, args_t **arguments);
-int built_in(args_t **head);
+
 #endif /* MAIN_H */
