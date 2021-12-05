@@ -6,20 +6,20 @@
  */
 int envi(void)
 {
-    size_t i;
+	size_t i;
 
-    for (i = 0; environ[i] != NULL; i++)
-    {
-    printf("%s\n", environ[i]);
-    }
-  return 0;
+	for (i = 0; environ[i] != NULL; i++)
+	{
+		printf("%s\n", environ[i]);
+	}
+	return (0);
 }
 /**
  * exitt - end of program
- * 
- * exit: end the system 
+ *
+ * Return: exit
  */
 int exitt(void)
 {
-	exit (-1);
+	exit(-1);
 }
