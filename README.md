@@ -130,10 +130,10 @@ execve() executes the program referred to by pathname.  This causes the program 
 
 ### _Format
 
-* **#define _POSIX_SOURCE
-* **#include <sys/wait.h>
+* **#define _POSIX_SOURCE**
+* **#include <sys/wait.h>**
 
-* **pid_t wait(int *status_ptr);
+* **pid_t wait(int *status_ptr);**
 
 ### _General description
 
