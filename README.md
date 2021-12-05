@@ -35,3 +35,22 @@ For example, if process1 with a PID of 101 starts a process named process2, then
 | ps  | The ps command is used to list all the currently running processes in the system and information related to them  |
 | sleep  | The sleep command is used in Linux to delay a running program by a certain amount of time  |
 | jobs  | The jobs command in Linux is used to list the status of all the jobs currently running in the terminal along with their job number  |
+| bg  | The bg command is used to push a suspended process into the background where it can continue to run  |
+| fg  | Similar to the bg command, the fg command is used to bring back a suspended process in the background to the foreground  |
+| kill  | The kill command in Linux is used to kill or stop a currently running process. The kill command can be used both with the job number and the Process ID (or PID)  |
+
+## _what is the difference between a function and a call
+
+The main difference between system call and function call is that a system call is a request for the kernel to access a resource while a function call is a request made by a program to perform a specific task.
+
+Although the two terms are used interchangeably, there is a difference between system call and function call. System calls are used when a program needs to communicate with the kernel while function calls are used to call a specific function within the program.
+
+## _how to create processes
+
+A new process can be created by the fork() system call. The new process consists of a copy of the address space of the original process. fork() creates new process from existing process. Existing process is called the parent process and the process is created newly is called child process. The function is called from parent process. Both the parent and the child processes continue execution at the instruction after the fork(), the return code for the fork() is zero for the new process, whereas the process identifier of the child is returned to the parent.
+
+```Fork() system call is situated in <sys/types.h> library.```
+
+System call getpid() returns the Process ID of the current process and getppid() returns the process ID of the current process’s parent process.
+
+## _
