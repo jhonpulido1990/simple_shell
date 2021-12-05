@@ -22,7 +22,7 @@ Available in the public domain. It provides all the features of the C shell toge
 Bourne Again Shell (bash)
 Public domain shell written by the Free Software Foundation under their GNU initiative. Ultimately it is intended to be a full implementation of the IEEE Posix Shell and Tools specification. Widely used within the academic commnity. Provides all the interactive features of the C shell (csh) and the Korn shell (ksh). Its programming language is compatible with the Bourne shell (sh).
 
-## _what is pid and ppid
+## _What is pid and ppid
 
 ```PID: In Linux, an executable stored on disk is called a program, and a program loaded into memory and running is called a process. When a process is started, it is given a unique number called process ID (PID) that identifies that process to the system. If you ever need to kill a process, for example, you can refer to it by its PID.```
 
@@ -30,7 +30,7 @@ Public domain shell written by the Free Software Foundation under their GNU init
 
 For example, if process1 with a PID of 101 starts a process named process2, then process2 will be given a unique PID, such as 3240, but it will be given the PPID of 101. It’s a parent-child relationship. A single parent process may spawn several child processes, each with a unique PID but all sharing the same PPID.
 
-## _how to manipulate the current process
+## _How to manipulate the current process
 
 | Command  | Function |
 | ------------- | ------------- |
@@ -41,13 +41,13 @@ For example, if process1 with a PID of 101 starts a process named process2, then
 | fg  | Similar to the bg command, the fg command is used to bring back a suspended process in the background to the foreground  |
 | kill  | The kill command in Linux is used to kill or stop a currently running process. The kill command can be used both with the job number and the Process ID (or PID)  |
 
-## _what is the difference between a function and a call
+## _What is the difference between a function and a call
 
 The main difference between system call and function call is that a system call is a request for the kernel to access a resource while a function call is a request made by a program to perform a specific task.
 
 Although the two terms are used interchangeably, there is a difference between system call and function call. System calls are used when a program needs to communicate with the kernel while function calls are used to call a specific function within the program.
 
-## _how to create processes
+## _How to create processes
 
 A new process can be created by the fork() system call. The new process consists of a copy of the address space of the original process. fork() creates new process from existing process. Existing process is called the parent process and the process is created newly is called child process. The function is called from parent process. Both the parent and the child processes continue execution at the instruction after the fork(), the return code for the fork() is zero for the new process, whereas the process identifier of the child is returned to the parent.
 
@@ -55,7 +55,7 @@ A new process can be created by the fork() system call. The new process consists
 
 System call getpid() returns the Process ID of the current process and getppid() returns the process ID of the current process’s parent process.
 
-## _what are the three prototypes of main
+## _What are the three prototypes of main
 
 main() in a hosted environment is implicitly assumed to have one of the two forms:
 
@@ -71,7 +71,7 @@ Optionally, some implementations (mostly POSIX systems) also provide a third for
 
 The third argument envp gives the program’s environment; it is the same as the value of environ. See Environment Variables. POSIX.1 does not allow this three-argument form, so to be portable it is best to write main to take two arguments, and use the value of environ.
 
-## _how shell uses the path to find the programs
+## _How shell uses the path to find the programs
 
 ### _Searching for command names in PATH
 
@@ -101,17 +101,18 @@ $ /bin/date
 Sat Mar 16 20:39:43 EDT 2013
 Slashes in the pathname prevent the shell from using PATH to look up the command name, so the shell executes /bin/date directly.
 
-## _how to run another program with the exceve system call
+## _How to run another program with the exceve system call
 
 execve() executes the program referred to by pathname.  This causes the program that is currently being run by the calling
        process to be replaced with a new program, with newly initialized stack, heap, and (initialized and uninitialized) data segments. pathname must be either a binary executable, or a script starting
        with a line of the form:
 
-           #!interpreter [optional-arg]
+        interpreter [optional-arg]
 
        For details of the latter case, see "Interpreter scripts" below.
 
-       argv is an array of pointers to strings passed to the new program as its command-line arguments.  By convention, the first of these strings (i.e., argv[0]) should contain the filename associated
+       argv is an array of pointers to strings passed to the new program as its command-line arguments.
+       By convention, the first of these strings (i.e., argv[0]) should contain the filename associated
        with the file being executed.  The argv array must be terminated
        by a NULL pointer.  (Thus, in the new program, argv[argc] will be
        NULL.)
@@ -119,11 +120,44 @@ execve() executes the program referred to by pathname.  This causes the program 
        envp is an array of pointers to strings, conventionally of the
        form key=value, which are passed as the environment of the new
        program.  The envp array must be terminated by a NULL pointer.
-
-       The argument vector and environment can be accessed by the new program's main function, when it is defined as:
+       The argument vector and environment can be accessed by the new
+       program's main function, when it is defined as:
 
            int main(int argc, char *argv[], char *envp[])
 
-       Note, however, that the use of a third argument to the main function is not specified in POSIX.1; according to POSIX.1, the
-       environment should be accessed via the external variable environ(7).
+       Note, however, that the use of a third argument to the main function is not specified in POSIX.1;
+       according to POSIX.1, the environment should be accessed via the external variable environ(7).
 
+## _How to suspend the execution of a process until one of its children finishes
+
+### _Format
+
+* **#define _POSIX_SOURCE
+* **#include <sys/wait.h>
+
+* **pid_t wait(int *status_ptr);
+
+### _General description
+
+Suspends the calling process until any one of its child processes ends. More precisely, wait() suspends the calling process until the system obtains status information on the ended child. If the system already has status information on a completed child process when wait() is called, wait() returns immediately. wait() is also ended if the calling process receives a signal whose action is either to execute a signal handler or to end the process.
+
+The argument status_ptr points to a location where wait() can store a status value. This status value is zero if the child process explicitly returns zero status. If it is not zero, it can be analyzed with the status analysis macros, described in “Status Analysis Macros,” below.
+
+The status_ptr pointer may also be NULL, in which case wait() ignores the child's return status.
+
+The following function calls are equivalent:
+
+* **wait(status_ptr);
+* **waitpid(-1,status_ptr,0);
+* **wait3(status_ptr,0,NULL);
+
+## _what is eof / end of file
+
+The End of the File (EOF) indicates the end of input.
+
+After we enter the text, if we press ctrl+Z, the text terminates i.e. it indicates the file reached end nothing to read.
+
+## Authors ✒️
+
+* **Edgar Santander** - [easantanders21](https://github.com/easantanders21)
+* **Jhon Pulido**  - [jhonpulido1990](https://github.com/jhonpulido1990)
