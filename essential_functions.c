@@ -76,8 +76,8 @@ int no_built_in(args_t **head)
  */
 int built_in(args_t **head)
 {
-	select_built_t modulo[] = {{"exit1", holam1}, {"exit2", holam2},
-				   {"exit3", holam3}, {NULL, NULL}};
+	select_built_t modulo[] = {{"env", envi}, {"exit", exitt},
+				   {NULL, NULL}};
 	args_t *aux = *head;
 	int comp, i, status_nb;
 	char *dato = aux->arg;
