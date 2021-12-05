@@ -30,7 +30,8 @@ For example, if process1 with a PID of 101 starts a process named process2, then
 
 ## _how to manipulate the current process
 
-| First Header  | Second Header |
+| Command  | Function |
 | ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| ps  | The ps command is used to list all the currently running processes in the system and information related to them  |
+| sleep  | The sleep command is used in Linux to delay a running program by a certain amount of time  |
+| jobs  | The jobs command in Linux is used to list the status of all the jobs currently running in the terminal along with their job number  |
