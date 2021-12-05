@@ -59,7 +59,8 @@ System call getpid() returns the Process ID of the current process and getppid()
 
 main() in a hosted environment is implicitly assumed to have one of the two forms:
 
-```int main(void);``` 
+```int main(void);```
+
 ```int main(int argc, char **argv);```
 
 The value of the argc argument is the number of command line arguments. The argv argument is a vector of C strings; its elements are the individual command line argument strings. The file name of the program being run is also included in the vector as the first element; the value of argc counts this element. A null pointer always follows the last element: argv[argc] is this null pointer.
@@ -69,4 +70,60 @@ Optionally, some implementations (mostly POSIX systems) also provide a third for
 ```int main(int argc, char **argv, char **envp)```
 
 The third argument envp gives the program’s environment; it is the same as the value of environ. See Environment Variables. POSIX.1 does not allow this three-argument form, so to be portable it is best to write main to take two arguments, and use the value of environ.
+
+## _how shell uses the path to find the programs
+
+### _Searching for command names in PATH
+
+Any command name that is not built-in (e.g. date) is assumed to be the name of an executable program file, and the shell attempts to find an executable file with that name and run it. (Shells find and run commands.)
+
+If the command name contains no slashes (like most command names, e.g. date), the shell looks for the executable file with that exact name in the list of directories kept in the PATH environment variable. Because PATH is a shell environment variable, you can change the list, and the list is usually exported and inherited by child processes of your shell. Directories in PATH are separated by colons, e.g. the following PATH variable contains three directories separated by two colons:
+
+$ echo "$PATH"
+/usr/local/bin:/bin:/usr/bin
+When you type the command name date (with no slashes), the shell goes looking for the date executable file in the list of directories kept in the PATH environment variable, looking for an executable file named date to execute. The shell tries each directory in the PATH, left-to-right, and runs the first executable program with the matching command name that it finds.
+
+Using the above PATH list of directories, you can see that when you type date, the first directory tried in the PATH is /usr/local/bin, so the shell looks for an executable file named /usr/local/bin/date. This pathname does not usually exist:
+
+$ ls -l /usr/local/bin/date
+ls: cannot access /usr/local/bin/date: No such file or directory
+The shell next tries the second directory name in the PATH variable (/bin) and looks for an executable file named /bin/date, and this is the usual location of the date executable file:
+
+$ ls -l /bin/date
+-rwxr-xr-x 1 root root 59984 Nov 19 17:25 /bin/date
+Since this file exists, the shell runs this executable program and the date appears on your screen:
+
+$ date
+Sat Mar 16 20:39:13 EDT 2013
+You could get exactly the same results on your screen if you typed the full pathname of the executable date file yourself:
+
+$ /bin/date
+Sat Mar 16 20:39:43 EDT 2013
+Slashes in the pathname prevent the shell from using PATH to look up the command name, so the shell executes /bin/date directly.
+
+## _how to run another program with the exceve system call
+
+execve() executes the program referred to by pathname.  This causes the program that is currently being run by the calling
+       process to be replaced with a new program, with newly initialized stack, heap, and (initialized and uninitialized) data segments. pathname must be either a binary executable, or a script starting
+       with a line of the form:
+
+           #!interpreter [optional-arg]
+
+       For details of the latter case, see "Interpreter scripts" below.
+
+       argv is an array of pointers to strings passed to the new program as its command-line arguments.  By convention, the first of these strings (i.e., argv[0]) should contain the filename associated
+       with the file being executed.  The argv array must be terminated
+       by a NULL pointer.  (Thus, in the new program, argv[argc] will be
+       NULL.)
+
+       envp is an array of pointers to strings, conventionally of the
+       form key=value, which are passed as the environment of the new
+       program.  The envp array must be terminated by a NULL pointer.
+
+       The argument vector and environment can be accessed by the new program's main function, when it is defined as:
+
+           int main(int argc, char *argv[], char *envp[])
+
+       Note, however, that the use of a third argument to the main function is not specified in POSIX.1; according to POSIX.1, the
+       environment should be accessed via the external variable environ(7).
 
