@@ -1,3 +1,5 @@
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=easantanders21&theme=dark&show_icons=true)
+
 # SIMPLE SHELL
 
 ## _What is the Shell?
@@ -53,4 +55,18 @@ A new process can be created by the fork() system call. The new process consists
 
 System call getpid() returns the Process ID of the current process and getppid() returns the process ID of the current process’s parent process.
 
-## _
+## _what are the three prototypes of main
+
+main() in a hosted environment is implicitly assumed to have one of the two forms:
+
+```int main(void);``` 
+```int main(int argc, char **argv);```
+
+The value of the argc argument is the number of command line arguments. The argv argument is a vector of C strings; its elements are the individual command line argument strings. The file name of the program being run is also included in the vector as the first element; the value of argc counts this element. A null pointer always follows the last element: argv[argc] is this null pointer.
+
+Optionally, some implementations (mostly POSIX systems) also provide a third form:
+
+```int main(int argc, char **argv, char **envp)```
+
+The third argument envp gives the program’s environment; it is the same as the value of environ. See Environment Variables. POSIX.1 does not allow this three-argument form, so to be portable it is best to write main to take two arguments, and use the value of environ.
+
