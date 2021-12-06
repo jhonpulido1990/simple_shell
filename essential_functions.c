@@ -45,6 +45,11 @@ int no_built_in(args_t **head)
 	int status;
 	struct stat buf;
 
+	status = stat(aux->arg, &buf);
+
+	if (status == 0)
+		return (1);
+
 	_strdup(_getenv("PATH"), &path_string);
 	command  = aux->arg;
 	putpath = path_string;
@@ -61,7 +66,7 @@ int no_built_in(args_t **head)
 		{
 			aux->arg = dircon;
 			free(putpath);
-			return (1);
+			return (3);
 		}
 		free(dircon);
 	}
@@ -102,8 +107,13 @@ int built_in(args_t **head)
 		status_nb = no_built_in(head);
 		if (status_nb == 1)
 			return (1);
+		if (status_nb == 3)
+			return (3);
 		else
+		{
+			write(STDOUT_FILENO, "No such file or directory\n", 26);
 			return (2);
+		}
 	}
 	return (2);
 }

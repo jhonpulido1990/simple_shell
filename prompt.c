@@ -44,8 +44,10 @@ int main(int argc, char **argv, char **env)
 		{
 			status_execve = execve(args[0], args, env), exit(status_execve);
 		} else
-			wait(&status), free(list->arg), _free_list(&list), free(args);
+			wait(&status), _free_list(&list), free(args);
 		free(putline), free(line), list = NULL, line = NULL;
+		if (status_trans == 3)
+			free(list->arg);
 	} while (1);
 	return (0);
 }
