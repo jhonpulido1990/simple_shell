@@ -104,16 +104,16 @@ int built_in(args_t **head)
 			modulo[i].f();
 			return (0);
 		}
-
 	}
-
 	if (comp != 0)
 	{
 		status_nb = no_built_in(head);
 		if (status_nb == 1)
 			return (1);
 		if (status_nb == 3)
+		{
 			return (3);
+		}
 		else
 		{
 			write(STDOUT_FILENO, "No such file or directory\n", 26);

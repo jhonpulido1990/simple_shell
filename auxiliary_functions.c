@@ -1,11 +1,11 @@
 #include "main.h"
 /**
- * _free_list - free a list
+ * free_list - free a list
  * @head: pointer to list
  *
  * Return: void
  */
-void _free_list(args_t **head)
+void free_list(args_t **head)
 {
 	args_t *tmp;
 

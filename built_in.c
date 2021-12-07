@@ -16,13 +16,14 @@ int envi(void)
 }
 /**
  * exitt - end of program
+ * @lista: lista
  *
  * Return: exit
  */
 int exitt(args_t **lista)
 {
-	_free_list(lista);
+	free_list(lista);
 	free(line);
-	free(putline);
+	free(pl);
 	exit(2);
 }

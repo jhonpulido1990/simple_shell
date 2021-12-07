@@ -35,7 +35,7 @@ typedef struct built_l
 } select_built_t;
 
 /*args_t *list = NULL;*/
-char *putline;
+char *pl;
 char *line;
 /*prototypes prompt*/
 int main(int argc, char **argv, char **env);
@@ -50,7 +50,7 @@ char *_getenv(const char *name);
 int envi(void);
 int exitt(args_t **lista);
 /*prototypes auxiliary_functions*/
-void _free_list(args_t **head);
+void free_list(args_t **head);
 void _free_args(char **args);
 int _strcmp(char *s1, char *s2);
 void _nest(char *dir, char *command, char **dircon);
