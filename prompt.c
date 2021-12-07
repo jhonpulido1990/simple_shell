@@ -10,11 +10,13 @@
 int main(int argc, char **argv, char **env)
 {
 	ssize_t status_read, tty = 1;
-	char *line = NULL, *cpline = NULL, **args = NULL, *putline;
+	char *cpline = NULL, **args = NULL;
 	int status_execve, status, status_trans;
 	pid_t pid;
 	size_t lineSize = 0;
 	args_t *list = NULL;
+
+	line = NULL;
 
 	UNUSED(env), UNUSED(argv), UNUSED(argc);
 	isatty(STDIN_FILENO) == 0 ? tty = 0 : tty;
@@ -27,7 +29,8 @@ int main(int argc, char **argv, char **env)
 		if (*line == '\n' || *line == '\t' || *line == ' ')
 			continue;
 		_strdup(line, &cpline),	putline = cpline;
-		create_list(cpline, &putline, &list), status_trans = built_in(&list);
+		create_list(cpline, &putline, &list);
+		status_trans = built_in(&list);
 		if (status_trans == 0)
 		{_free_list(&list), free(putline);
 			continue; }
@@ -44,10 +47,13 @@ int main(int argc, char **argv, char **env)
 		{
 			status_execve = execve(args[0], args, env), exit(status_execve);
 		} else
-			wait(&status), _free_list(&list), free(args);
-		free(putline), free(line), list = NULL, line = NULL;
+			wait(&status);
+
 		if (status_trans == 3)
 			free(list->arg);
+
+		_free_list(&list), free(args);
+		free(putline), free(line), list = NULL, line = NULL;
 	} while (1);
 	return (0);
 }

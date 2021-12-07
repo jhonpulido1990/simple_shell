@@ -33,6 +33,10 @@ typedef struct built_l
 	char *id;
 	int (*f)();
 } select_built_t;
+
+/*args_t *list = NULL;*/
+char *putline;
+char *line;
 /*prototypes prompt*/
 int main(int argc, char **argv, char **env);
 /*prototypes essential_functions*/
@@ -44,7 +48,7 @@ int create_list(char *cpline, char **putline, args_t **arguments);
 char *_getenv(const char *name);
 /*prototypes built in*/
 int envi(void);
-int exitt(void);
+int exitt(args_t **lista);
 /*prototypes auxiliary_functions*/
 void _free_list(args_t **head);
 void _free_args(char **args);

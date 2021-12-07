@@ -48,7 +48,7 @@ int no_built_in(args_t **head)
 	status = stat(aux->arg, &buf);
 
 	if (status == 0)
-		return (1);
+	return (1);
 
 	_strdup(_getenv("PATH"), &path_string);
 	command  = aux->arg;
@@ -96,6 +96,11 @@ int built_in(args_t **head)
 
 		if (comp == 0)
 		{
+			if (i == 1)
+			{
+				modulo[i].f(head);
+				return (0);
+			}
 			modulo[i].f();
 			return (0);
 		}

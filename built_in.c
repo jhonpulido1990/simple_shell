@@ -19,7 +19,10 @@ int envi(void)
  *
  * Return: exit
  */
-int exitt(void)
+int exitt(args_t **lista)
 {
-	exit(-1);
+	_free_list(lista);
+	free(line);
+	free(putline);
+	exit(2);
 }
