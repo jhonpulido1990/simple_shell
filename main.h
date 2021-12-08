@@ -49,8 +49,6 @@ args_t *add(args_t **head, char *arg);
 int built_in(args_t **head);
 char **transform(args_t **head);
 int create_list(char *cpline, char **putline, args_t **arguments);
-/*prototypes getenv*/
-char *_getenv(const char *name);
 /*prototypes built in*/
 int envi(void);
 int exitt(args_t **lista);
@@ -60,7 +58,9 @@ void _free_args(char **args);
 int _strcmp(char *s1, char *s2);
 void _nest(char *dir, char *command, char **dircon);
 void _strdup(char *str, char **str_copy);
+/*prototype print*/
 int _putchar(char c);
+char *_getenv(const char *name);
 void print_str(char *str);
 void print_num(int num);
 int space(char *line);
