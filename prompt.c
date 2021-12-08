@@ -15,10 +15,10 @@ int main(int argc, char **argv, char **env)
 	size_t lineSize = 0;
 	args_t *list = NULL;
 
-	salida = 0, line = NULL, UNUSED(env), UNUSED(argv), UNUSED(argc);
+	salida = 0, line = NULL, count = 0, UNUSED(argc), argv0 = argv[0];
 	isatty(STDIN_FILENO) == 0 ? tty = 0 : tty;
 	do { tty == 1 ? write(STDOUT_FILENO, "($) ", 4) : tty;
-		fflush(stdin), status_read = getline(&line, &lineSize, stdin);
+		fflush(stdin), status_read = getline(&line, &lineSize, stdin), count++;
 		if (status_read == EOF)
 		{ free(line);
 			break; }

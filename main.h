@@ -37,7 +37,9 @@ typedef struct built_l
 /*args_t *list = NULL;*/
 char *pl;
 char *line;
+char *argv0;
 int salida;
+int count;
 pid_t pid;
 /*prototypes prompt*/
 int main(int argc, char **argv, char **env);
@@ -58,5 +60,6 @@ int _strcmp(char *s1, char *s2);
 void _nest(char *dir, char *command, char **dircon);
 void _strdup(char *str, char **str_copy);
 int _putchar(char c);
-void print_str(args_t **head, char *str);
+void print_str(char *str);
+void print_num(int num);
 #endif /* MAIN_H */

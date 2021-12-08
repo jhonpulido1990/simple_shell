@@ -89,7 +89,6 @@ int built_in(args_t **head)
 
 	if (head == NULL)
 		return (0);
-
 	for (i = 0; modulo[i].f != NULL; i++)
 	{
 		comp = _strcmp(modulo[i].id, dato);
@@ -117,7 +116,7 @@ int built_in(args_t **head)
 		else
 		{
 			salida = 127;
-			print_str(head, dato);
+			print_str(dato);
 			return (2);
 		}
 	}

@@ -1,13 +1,25 @@
 #include "main.h"
-void print_str(args_t **head, char *str)
+/**
+ * print_str - print str
+ * @str: string to print
+ *
+ * Return: void
+ */
+void print_str(char *str)
 {
-	int i = 0, j = 0;
+	int i = 0, j = 0, k = 0;
 	char *not_found = ": not found";
-	args_t *aux = *head;
 
-	(void) head;
-	(void) aux;
-
+	while (argv0[k] != '\0')
+	{
+		_putchar(argv0[k]);
+		k++;
+	}
+	_putchar(58);
+	_putchar(32);
+	print_num(count);
+	_putchar(58);
+	_putchar(32);
 	while (str[i] != '\0')
 	{
 		_putchar(str[i]);
