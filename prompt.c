@@ -22,8 +22,8 @@ int main(int argc, char **argv, char **env)
 		if (status_read == EOF)
 		{ free(line);
 			break; }
-		if (*line == ' ' ||*line == '\t' || *line == '\n')
-			continue;
+		while (*line == ' ' || *line == '\t' || *line == '\n')
+			line++;
 		_strdup(line, &cpline),	pl = cpline;
 		create_list(cpline, &pl, &list), status_trans = built_in(&list);
 		if (status_trans == 0)
