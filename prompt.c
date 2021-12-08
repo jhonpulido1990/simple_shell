@@ -12,11 +12,10 @@ int main(int argc, char **argv, char **env)
 	ssize_t status_read, tty = 1;
 	char *cpline = NULL, **args = NULL;
 	int status_execve, status, status_trans;
-	pid_t pid;
 	size_t lineSize = 0;
 	args_t *list = NULL;
 
-	line = NULL, UNUSED(env), UNUSED(argv), UNUSED(argc);
+	salida = 0, line = NULL, UNUSED(env), UNUSED(argv), UNUSED(argc);
 	isatty(STDIN_FILENO) == 0 ? tty = 0 : tty;
 	do { tty == 1 ? write(STDOUT_FILENO, "($) ", 4) : tty;
 		fflush(stdin), status_read = getline(&line, &lineSize, stdin);

@@ -116,7 +116,8 @@ int built_in(args_t **head)
 		}
 		else
 		{
-			write(STDOUT_FILENO, "No such file or directory\n", 26);
+			salida = 127;
+			print_str(head, dato);
 			return (2);
 		}
 	}

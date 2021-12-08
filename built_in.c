@@ -25,5 +25,5 @@ int exitt(args_t **lista)
 	free_list(lista);
 	free(line);
 	free(pl);
-	exit(2);
+	exit(salida);
 }
