@@ -11,19 +11,19 @@ int main(int argc, char **argv, char **env)
 {
 	ssize_t status_read, tty = 1;
 	char *cpline = NULL, **args = NULL;
-	int status_execve, status, status_trans;
-	size_t lineSize = 0;
+	int status_execve, status, status_trans, status_space;
 	args_t *list = NULL;
 
-	salida = 0, line = NULL, count = 0, UNUSED(argc), argv0 = argv[0];
+	salida = 0, line = NULL, count = 0, UNUSED(argc), argv0 = argv[0], lineS = 0;
 	isatty(STDIN_FILENO) == 0 ? tty = 0 : tty;
 	do { tty == 1 ? write(STDOUT_FILENO, "($) ", 4) : tty;
-		fflush(stdin), status_read = getline(&line, &lineSize, stdin), count++;
+		fflush(stdin), status_read = getline(&line, &lineS, stdin), count++;
 		if (status_read == EOF)
 		{ free(line);
 			break; }
-		while (*line == ' ' || *line == '\t' || *line == '\n')
-			line++;
+		status_space = space(line);
+		if (status_space == 1 || *line == '\t' || *line == '\n')
+			continue;
 		_strdup(line, &cpline),	pl = cpline;
 		create_list(cpline, &pl, &list), status_trans = built_in(&list);
 		if (status_trans == 0)
@@ -47,5 +47,6 @@ int main(int argc, char **argv, char **env)
 			free(list->arg);
 		free_list(&list), free(args), free(pl), free(line), list = NULL, line = NULL;
 	} while (1);
+	_putchar('\n');
 	return (0);
 }

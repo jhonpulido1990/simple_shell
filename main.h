@@ -41,6 +41,7 @@ char *argv0;
 int salida;
 int count;
 pid_t pid;
+size_t lineS;
 /*prototypes prompt*/
 int main(int argc, char **argv, char **env);
 /*prototypes essential_functions*/
@@ -62,4 +63,5 @@ void _strdup(char *str, char **str_copy);
 int _putchar(char c);
 void print_str(char *str);
 void print_num(int num);
+int space(char *line);
 #endif /* MAIN_H */
