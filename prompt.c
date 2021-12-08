@@ -47,6 +47,5 @@ int main(int argc, char **argv, char **env)
 			free(list->arg);
 		free_list(&list), free(args), free(pl), free(line), list = NULL, line = NULL;
 	} while (1);
-	_putchar('\n');
 	return (0);
 }
