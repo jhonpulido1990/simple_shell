@@ -1,4 +1,4 @@
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=easantanders21&theme=dark&show_icons=true)
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=jhonpulido1990&theme=dark&show_icons=true)
 
 # SIMPLE SHELL
 
